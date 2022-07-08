@@ -6,6 +6,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
+	chitracer "gopkg.in/DataDog/dd-trace-go.v1/contrib/go-chi/chi"
 )
 
 // Route defines a valid endpoint with the type of action supported on it
@@ -18,7 +19,7 @@ type Route struct {
 // NewRouter returns a router handle loaded with all the supported routes
 func NewRouter(routes []Route) *chi.Mux {
 	r := chi.NewRouter()
-
+	r.Use(chitracer.Middleware(chitracer.WithServiceName("dd-agent")))
 	//  cors support
 	r.Use(cors.Handler(cors.Options{
 		AllowedOrigins: []string{"*"},

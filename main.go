@@ -1,6 +1,7 @@
 package main
 
 import (
+	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"
 	"log"
 	"net/http"
 	"time"
@@ -17,6 +18,17 @@ import (
 // @description chi-swagger example APIs
 // @BasePath /
 func main() {
+	tracer.Start(
+		tracer.WithEnv("prod"),
+		tracer.WithService("dd-agent"),
+		// or, for a non-default TCP connection:
+		tracer.WithAgentAddr("localhost:8126"),
+	)
+
+	// When the tracer is stopped, it will flush everything it has to the Datadog Agent before quitting.
+	// Make sure this line stays in your main function.
+	defer tracer.Stop()
+
 	var timeout = 2 * time.Minute
 
 	var routes = []router.Route{

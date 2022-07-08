@@ -1,6 +1,23 @@
 # chi-swagger
 chi middleware to automatically generate RESTful API documentation with Swagger 2.0.
 
+## How to run
+```shell
+#run go application
+go run .
+
+#open browser test api
+http://localhost/
+
+#open browser test swagger page
+http://localhost/swagger/index.html
+
+#check datadog server info
+http://localhost:8126/info
+```
+
+
+
 ## why use [swaggo/swag](https://github.com/swaggo/swag)?
 - It provides a [declarative](https://swaggo.github.io/swaggo.io/declarative_comments_format/) way to put to put comments which can be used fo swagger docs.
 
